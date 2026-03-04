@@ -3,12 +3,15 @@ import { cn } from "../utils/cn";
 export default function Home() {
     const cns = {
         container: cn(
-            "px-container",
+            "px-container relative",
             "bg-[url('/images/homepage/hero-bg-desktop@2x.jpg')] bg-cover bg-center",
             "h-screen w-full flex items-center text-white"
         ),
+        backdrop: cn(
+            "absolute inset-0 bg-neutral-950 w-[530px] h-full"
+        ),
         content: cn(
-            "w-[500px] flex flex-col gap-[1.5rem] items-start"
+            "w-[500px] flex flex-col gap-[1.5rem] items-start z-10"
         ),
         title: cn("text-1"),
         description: cn("text-4-regular"),
@@ -18,6 +21,7 @@ export default function Home() {
     };
     return (
         <div className={cns.container}>
+            <div className={cns.backdrop} />
             <div className={cns.content}>
                 <h1 className={cns.title}>
                     {"Exquisite dining since 1989"}

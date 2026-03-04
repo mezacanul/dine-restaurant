@@ -12,7 +12,7 @@ export default function Layout() {
 
 function Header() {
     return (
-        <div className="absolute top-0 left-0 w-full px-container py-[3rem]">
+        <div className="absolute top-0 left-0 w-full px-container py-[3rem] z-10">
             <h1 className="text-white text-5xl font-bold">
                 {"dine"}
             </h1>

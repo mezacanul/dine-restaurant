@@ -35,10 +35,15 @@
     }
 }
 
+/* Main  */
 @layer utilities {
     .px-container {
-        @apply px-[6rem];
+        @apply px-[8rem];
     }
+}
+
+/* Text */
+@layer utilities {
     .text-1 {
         @apply text-[80px]/[100%] font-light tracking-[-1px];
     }
