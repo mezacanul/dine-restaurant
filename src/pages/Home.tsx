@@ -1,40 +1,17 @@
-import { cn } from "../utils/cn";
+import Hero from "../components/Home/Hero";
+import Presentation from "../components/Home/Presentation";
+import Booking from "../components/Home/Booking";
+import Highlights from "../components/Home/Highlights";
+import Reservations from "../components/Home/Reservations";
 
 export default function Home() {
-    const cns = {
-        container: cn(
-            "px-container relative",
-            "bg-[url('/images/homepage/hero-bg-desktop@2x.jpg')] bg-cover bg-center",
-            "h-screen w-full flex items-center text-white"
-        ),
-        backdrop: cn(
-            "absolute inset-0 bg-neutral-950 w-[530px] h-full"
-        ),
-        content: cn(
-            "w-[500px] flex flex-col gap-[1.5rem] items-start z-10"
-        ),
-        title: cn("text-1"),
-        description: cn("text-4-regular"),
-        button: cn(
-            "text-4-regular py-[1rem] px-[3rem] border border-white"
-        ),
-    };
     return (
-        <div className={cns.container}>
-            <div className={cns.backdrop} />
-            <div className={cns.content}>
-                <h1 className={cns.title}>
-                    {"Exquisite dining since 1989"}
-                </h1>
-                <p className={cns.description}>
-                    {
-                        "Experience our seasonal menu in beautiful country surroundings. Eat the freshest produce from the comfort of our farmhouse."
-                    }
-                </p>
-                <button className={cns.button}>
-                    {"BOOK A TABLE"}
-                </button>
-            </div>
-        </div>
+        <>
+            <Hero />
+            <Presentation />
+            <Highlights />
+            <Booking />
+            <Reservations />
+        </>
     );
 }

@@ -38,7 +38,7 @@
 /* Main  */
 @layer utilities {
     .px-container {
-        @apply px-[8rem];
+        @apply px-[10rem];
     }
 }
 
