@@ -8,7 +8,7 @@ type ResponsiveValues<T> = [T, T, T?, T?, T?];
 export function useResponsive<T>(
     values: ResponsiveValues<T>
 ): T {
-    const breakpoints = [640];
+    const breakpoints = [640, 1024];
     // Logic check: We need exactly one less breakpoint than we have values
     const activeValues = values.filter(
         (v) => v !== undefined

@@ -38,14 +38,16 @@
 /* Main  */
 @layer utilities {
     .px-container {
-        @apply px-[10rem];
+        @apply px-[1rem] sm:px-[5rem] lg:px-[10rem];
     }
+
+
 }
 
 /* Text */
 @layer utilities {
     .text-1 {
-        @apply text-[80px]/[100%] font-light tracking-[-1px];
+        @apply lg:text-[80px]/[100%] sm:text-[60px]/[100%] text-[40px]/[100%] font-light tracking-[-1px];
     }
 
     .text-2-bold {
@@ -66,7 +68,7 @@
         @apply text-[20px]/[120%] font-bold tracking-[-0.25px];
     }
     .text-4-regular {
-        @apply text-[20px]/[150%] tracking-[0];
+        @apply text-[16px]/[150%] sm:text-[18px]/[150%] lg:text-[20px]/[150%] tracking-[0];
     }
 
     .text-5-wide {

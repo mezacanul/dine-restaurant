@@ -1,10 +1,12 @@
 import { Outlet } from "react-router-dom";
 import Logo from "./Logo";
+import { useResponsive } from "../hooks/useResponsive";
 
 export default function Layout() {
     return (
         <div className="relative">
-            <Header />
+            {useResponsive([null, null, <Header />])}
+            {/* <Header /> */}
             <Outlet />
             <Footer />
         </div>
@@ -23,13 +25,13 @@ function Footer() {
     return (
         <div className="w-full grid grid-cols-3 px-container items-start py-[5rem] bg-neutral-900 text-white">
             <Logo />
-            
+
             <div className="flex flex-col gap-2">
                 <p>{"Marthwaite, Sedbergh"}</p>
                 <p>{"Cumbria"}</p>
                 <p>{"+00 44 123 4567"}</p>
             </div>
-            
+
             <div className="flex flex-col gap-2">
                 <p>{"Open Times"}</p>
                 <p>{"Mon - Fri: 09:00 AM - 10:00 PM"}</p>
