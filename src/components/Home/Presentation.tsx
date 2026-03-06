@@ -42,7 +42,7 @@ export default function Presentation() {
                 "flex flex-col items-center lg:items-start w-full sm:w-[60%] lg:w-full gap-[2rem] lg:gap-[3rem]"
             ),
             title: cn(
-                "text-2-bold text-center lg:text-left"
+                "text-2-bold text-center w-[80%] sm:w-full lg:text-left"
             ),
             description: cn(
                 "text-4-regular text-center lg:text-left"
@@ -55,7 +55,10 @@ export default function Presentation() {
             {/* Content  */}
             <div className={cns.content}>
                 <img
-                    className={cn(cns.image, "lg:-mt-[5rem]")}
+                    className={cn(
+                        cns.image,
+                        "-mt-[5rem]"
+                    )}
                     src={useResponsive<string>([
                         content[0].image.mobile,
                         content[0].image.tablet,
@@ -131,7 +134,10 @@ export default function Presentation() {
                 </div>
 
                 <img
-                    className={cn(cns.image, "lg:-mb-[5rem]")}
+                    className={cn(
+                        cns.image,
+                        "lg:-mb-[5rem]"
+                    )}
                     src={useResponsive<string>([
                         content[1].image.mobile,
                         content[1].image.tablet,
@@ -154,7 +160,7 @@ function Patterns() {
             />
 
             <img
-                className="hidden sm:block absolute bottom-[25%] right-[5%] w-[10%] object-cover z-10"
+                className="hidden sm:block absolute bottom-[30%] lg:bottom-[25%] right-[5%] w-[20%] lg:w-[10%] object-cover z-10"
                 src="/images/patterns/pattern-lines.svg"
             />
 
