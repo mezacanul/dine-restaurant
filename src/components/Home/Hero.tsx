@@ -1,7 +1,9 @@
 import { cn } from "../../utils/cn";
-import BookTableButton from "../common/BookTableButton";
+import Button from "../common/Button";
+import { useNavigate } from "react-router-dom";
 
 export default function Hero() {
+    const navigate = useNavigate();
     const cns = {
         container: cn(
             "px-container relative",
@@ -29,7 +31,10 @@ export default function Hero() {
                         "Experience our seasonal menu in beautiful country surroundings. Eat the freshest produce from the comfort of our farmhouse."
                     }
                 </p>
-                <BookTableButton />
+                <Button
+                    label="BOOK A TABLE"
+                    onClick={() => navigate("/booking")}
+                />
             </div>
         </div>
     );

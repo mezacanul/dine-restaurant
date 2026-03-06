@@ -1,5 +1,6 @@
 import { useState } from "react";
-import BookTableButton from "../common/BookTableButton";
+import Button from "../common/Button";
+import { useNavigate } from "react-router-dom";
 
 const bookingOptions = [
     {
@@ -24,7 +25,7 @@ const bookingOptions = [
 
 export default function Booking() {
     const [currentIndex, setCurrentIndex] = useState(0);
-
+    const navigate = useNavigate();
     return (
         <div className="px-container relative grid grid-cols-2 py-[10rem] bg-neutral-50">
             {/* Patterns  */}
@@ -62,7 +63,11 @@ export default function Booking() {
                         </p>
                     </div>
 
-                    <BookTableButton type="solid" />
+                    <Button
+                        type="solid"
+                        label="BOOK A TABLE"
+                        onClick={() => navigate("/booking")}
+                    />
 
                     <BookingMenu
                         options={bookingOptions}

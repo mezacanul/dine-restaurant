@@ -1,4 +1,5 @@
 import { cn } from "../utils/cn";
+import Form from "../components/Booking/Form";
 
 export default function Booking() {
     const bgClass =
@@ -28,7 +29,7 @@ export default function Booking() {
                     </p>
                 </div>
 
-                <div className="w-[50%] bg-neutral-50 h-full z-10 mt-[40vh] shadow-2xl/50" />
+                <Form />
             </div>
             <div className="bg-neutral-50 relative h-[40vh]">
                 <img
