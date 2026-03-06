@@ -10,10 +10,10 @@ export default function Reservations() {
         <div
             className={cn(
                 bgClass,
-                "px-container bg-cover bg-center text-white py-[5rem] flex items-center justify-between"
+                "px-container bg-cover bg-center text-white py-[5rem] flex flex-col gap-[2rem] lg:gap-0 lg:flex-row items-center justify-between"
             )}
         >
-            <h2 className="text-2-bold">
+            <h2 className="text-2-bold text-center lg:text-left">
                 {"Ready to make a reservation?"}
             </h2>
             <Button
