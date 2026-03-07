@@ -1,7 +1,14 @@
 import { useState } from "react";
 import Button from "../common/Button";
+import { cn } from "../../utils/cn";
+import DatePicker from "./DatePicker";
+import TimePicker from "./TimePicker";
+import GuestsPicker from "./GuestsPicker";
+import { ImSpinner8 } from "react-icons/im";
 
 export default function Form() {
+    const [isLoading, setIsLoading] = useState(false);
+    const [success, setSuccess] = useState(false);
     const [formData, setFormData] = useState({
         name: "",
         email: "",
@@ -16,42 +23,103 @@ export default function Form() {
         minute: "00",
         period: "AM",
     });
+    const [isValid, setIsValid] = useState({
+        name: true,
+        email: true,
+        date: true,
+        time: true,
+    });
+
+    function handleSubmit() {
+        setIsLoading(true);
+        setTimeout(() => {
+            setIsLoading(false);
+            setSuccess(true);
+        }, 1000);
+    }
     return (
-        <div className="w-[50%] mt-[30vh] flex flex-col gap-[1.5rem] bg-neutral-50 z-10 shadow-2xl/50 text-black px-8 py-8 text-6">
-            <Input
-                placeholder="Name"
-                value={formData.name}
-                onChange={(e) =>
-                    setFormData({
-                        ...formData,
-                        name: e.target.value,
-                    })
-                }
-            />
-            <Input
-                placeholder="Email"
-                value={formData.email}
-                onChange={(e) =>
-                    setFormData({
-                        ...formData,
-                        email: e.target.value,
-                    })
-                }
-            />
+        <div
+            className={cn(
+                "w-full lg:w-[50%] mt-0 lg:mt-[30vh] flex flex-col gap-[1.5rem]",
+                "bg-neutral-50 z-10 shadow-2xl/50 px-8 py-8 text-6 text-black",
+                success ? "h-[100vh] sm:h-[800px] lg:h-[50vh]" : ""
+            )}
+        >
+            {!success && (
+                <>
+                    <div className="flex flex-col gap-2">
+                        <Input
+                            placeholder="Name"
+                            value={formData.name}
+                            onChange={(e) =>
+                                setFormData({
+                                    ...formData,
+                                    name: e.target.value,
+                                })
+                            }
+                        />
+                        {!isValid.name && (
+                            <p className="text-red-500 text-sm">
+                                {"Name is required"}
+                            </p>
+                        )}
+                    </div>
+                    <div className="flex flex-col gap-2">
+                        <Input
+                            placeholder="Email"
+                            value={formData.email}
+                            onChange={(e) =>
+                                setFormData({
+                                    ...formData,
+                                    email: e.target.value,
+                                })
+                            }
+                        />
+                        {!isValid.email && (
+                            <p className="text-red-500 text-sm">
+                                {"Email is required"}
+                            </p>
+                        )}
+                    </div>
+                    <DatePicker
+                        date={date}
+                        setDate={setDate}
+                        isValid={isValid.date}
+                    />
+                    <TimePicker
+                        time={time}
+                        setTime={setTime}
+                        isValid={isValid.time}
+                    />
+                    <GuestsPicker
+                        guests={formData.guests}
+                        setFormData={setFormData}
+                    />
+                </>
+            )}
 
-            <DatePicker date={date} setDate={setDate} />
-            <TimePicker time={time} setTime={setTime} />
-            <GuestsPicker
-                guests={formData.guests}
-                setFormData={setFormData}
-            />
-
-            <Button
-                label="MAKE RESERVATION"
-                type="solid"
-                onClick={() => {}}
-                disabled={true}
-            />
+            {!isLoading && !success && (
+                <Button
+                    label="MAKE RESERVATION"
+                    type="solid"
+                    onClick={handleSubmit}
+                    // disabled={true}
+                />
+            )}
+            {isLoading && !success && (
+                <div className="flex items-center justify-center py-2">
+                    <span className="text-xl">
+                        <ImSpinner8 className="animate-spin" />
+                    </span>
+                </div>
+            )}
+            {success && (
+                <div className="flex items-center justify-center pt-2 h-full">
+                    <p className="text-green-600 text-2-light text-center">
+                        {"Reservation made successfully!"}
+                    </p>
+                </div>
+            )}
         </div>
     );
 }
@@ -78,150 +146,21 @@ function Input({
     );
 }
 
-function DatePicker({
-    date,
-    setDate,
-}: {
-    date: { month: string; day: string };
-    setDate: (date: { month: string; day: string }) => void;
-}) {
-    const inputClass =
-        "p-2 border-b-2 border-black  focus:outline-none text-center";
-    return (
-        <div className="w-full grid grid-cols-4 gap-4 items-center">
-            <p className="w-full me-[4rem]">
-                {"Pick a date"}
-            </p>
-            <input
-                type="text"
-                placeholder="MM"
-                value={date.month}
-                onChange={(e) =>
-                    setDate({
-                        ...date,
-                        month: e.target.value,
-                    })
-                }
-                className={inputClass}
-            />
-            <input
-                type="text"
-                placeholder="DD"
-                value={date.day}
-                onChange={(e) =>
-                    setDate({
-                        ...date,
-                        day: e.target.value,
-                    })
-                }
-                className={inputClass}
-            />
-            <input
-                type="text"
-                // placeholder="YYYY"
-                value={"2026"}
-                className={inputClass}
-            />
-        </div>
+function getArray(type: "days" | "months") {
+    const base = Array.from(
+        { length: 31 },
+        (_, i) => i + 1
     );
-}
-
-function TimePicker({
-    time,
-    setTime,
-}: {
-    time: { hour: string; minute: string; period: string };
-    setTime: (time: {
-        hour: string;
-        minute: string;
-        period: string;
-    }) => void;
-}) {
-    const inputClass =
-        "p-2 border-b-2 border-black  focus:outline-none text-center";
-    return (
-        <div className="w-full grid grid-cols-4 gap-4 items-center">
-            <p className="w-full me-[4rem]">
-                {"Pick a time"}
-            </p>
-            <input
-                type="text"
-                placeholder="09"
-                value={time.hour}
-                className={inputClass}
-                onChange={(e) =>
-                    setTime({
-                        ...time,
-                        hour: e.target.value,
-                    })
-                }
-            />
-            <input
-                type="text"
-                placeholder="00"
-                value={time.minute}
-                className={inputClass}
-                onChange={(e) =>
-                    setTime({
-                        ...time,
-                        minute: e.target.value,
-                    })
-                }
-            />
-            <input
-                type="text"
-                // placeholder="YYYY"
-                value={"AM"}
-                className={inputClass}
-                onChange={(e) =>
-                    setTime({
-                        ...time,
-                        period: e.target.value,
-                    })
-                }
-            />
-        </div>
-    );
-}
-
-function GuestsPicker({
-    guests,
-    setFormData,
-}: {
-    guests: number;
-    setFormData: (data: any) => void;
-}) {
-    const handleDecrement = () => {
-        if (guests > 1) {
-            setFormData((prev: any) => ({
-                ...prev,
-                guests: prev.guests - 1,
-            }));
+    const strArray = base.map((day) => {
+        if (day < 10) {
+            return `0${day}`;
         }
-    };
-    const handleIncrement = () => {
-        if (guests < 25) {
-            setFormData((prev: any) => ({
-                ...prev,
-                guests: prev.guests + 1,
-            }));
-        }
-    };
-    return (
-        <div className="w-full flex items-center justify-between pb-3 border-b-2 border-black px-6">
-            <span
-                className="cursor-pointer text-xl"
-                onClick={handleDecrement}
-            >
-                {"-"}
-            </span>
-            <span className="font-bold">{guests}</span>
-            <span
-                className="cursor-pointer text-xl"
-                onClick={handleIncrement}
-            >
-                {"+"}
-            </span>
-        </div>
-    );
+        return day.toString();
+    });
+    if (type === "days") {
+        return strArray;
+    }
+    if (type === "months") {
+        return strArray.slice(0, 12);
+    }
 }
