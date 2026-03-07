@@ -1,4 +1,4 @@
-import { FaAngleDown, FaChevronDown } from "react-icons/fa";
+import { FaChevronDown } from "react-icons/fa";
 import { useResponsive } from "../../hooks/useResponsive";
 import { useState } from "react";
 

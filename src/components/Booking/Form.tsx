@@ -23,7 +23,7 @@ export default function Form() {
         minute: "00",
         period: "AM",
     });
-    const [isValid, setIsValid] = useState({
+    const [isValid] = useState({
         name: true,
         email: true,
         date: true,
@@ -146,21 +146,21 @@ function Input({
     );
 }
 
-function getArray(type: "days" | "months") {
-    const base = Array.from(
-        { length: 31 },
-        (_, i) => i + 1
-    );
-    const strArray = base.map((day) => {
-        if (day < 10) {
-            return `0${day}`;
-        }
-        return day.toString();
-    });
-    if (type === "days") {
-        return strArray;
-    }
-    if (type === "months") {
-        return strArray.slice(0, 12);
-    }
-}
+// function getArray(type: "days" | "months") {
+//     const base = Array.from(
+//         { length: 31 },
+//         (_, i) => i + 1
+//     );
+//     const strArray = base.map((day) => {
+//         if (day < 10) {
+//             return `0${day}`;
+//         }
+//         return day.toString();
+//     });
+//     if (type === "days") {
+//         return strArray;
+//     }
+//     if (type === "months") {
+//         return strArray.slice(0, 12);
+//     }
+// }
