@@ -1,4 +1,6 @@
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import type { RootState } from "../store";
 
 export default function Logo({
     link = false,
@@ -6,6 +8,9 @@ export default function Logo({
     link?: boolean;
 }) {
     const navigate = useNavigate();
+    const title = useSelector(
+        (state: RootState) => state.content.title
+    );
     function handleClick() {
         if (link) {
             navigate("/");
@@ -18,7 +23,7 @@ export default function Logo({
             }`}
             onClick={handleClick}
         >
-            {"dine"}
+            {title}
         </h1>
     );
 }

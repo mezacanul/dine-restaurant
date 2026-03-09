@@ -1,32 +1,27 @@
+import { useSelector } from "react-redux";
 import { useResponsive } from "../../hooks/useResponsive";
 import { cn } from "../../utils/cn";
+import type { RootState } from "../../store";
 
-const content = [
+const images = [
     {
-        title: "Enjoyable place for all the family",
-        description:
-            "Our relaxed surroundings make dining with us a great experience for everyone. We can even arrange a tour of the garden before your meal.",
-        image: {
-            desktop:
-                "/images/homepage/enjoyable-place-desktop@2x.jpg",
-            tablet: "/images/homepage/enjoyable-place-tablet@2x.jpg",
-            mobile: "/images/homepage/enjoyable-place-mobile@2x.jpg",
-        },
+        desktop:
+            "/images/homepage/enjoyable-place-desktop@2x.jpg",
+        tablet: "/images/homepage/enjoyable-place-tablet@2x.jpg",
+        mobile: "/images/homepage/enjoyable-place-mobile@2x.jpg",
     },
     {
-        title: "The most locally sourced food",
-        description:
-            "All our ingredients come directly from our farm or local fishery. So you can be sure that you're eating the freshest, most sustainable food.",
-        image: {
-            desktop:
-                "/images/homepage/locally-sourced-desktop@2x.jpg",
-            tablet: "/images/homepage/locally-sourced-tablet@2x.jpg",
-            mobile: "/images/homepage/locally-sourced-mobile@2x.jpg",
-        },
+        desktop:
+            "/images/homepage/locally-sourced-desktop@2x.jpg",
+        tablet: "/images/homepage/locally-sourced-tablet@2x.jpg",
+        mobile: "/images/homepage/locally-sourced-mobile@2x.jpg",
     },
 ];
 
 export default function Presentation() {
+    const cdn = useSelector(
+        (state: RootState) => state.content.home
+    );
     const cns = {
         content: cn(
             "w-full flex flex-col lg:grid lg:grid-cols-2 gap-[5rem] relative"
@@ -55,16 +50,12 @@ export default function Presentation() {
             {/* Content  */}
             <div className={cns.content}>
                 <img
-                    className={cn(
-                        cns.image,
-                        "-mt-[5rem]"
-                    )}
+                    className={cn(cns.image, "-mt-[5rem]")}
                     src={useResponsive<string>([
-                        content[0].image.mobile,
-                        content[0].image.tablet,
-                        content[0].image.desktop,
+                        images[0].mobile,
+                        images[0].tablet,
+                        images[0].desktop,
                     ])}
-                    alt={content[0].title}
                 />
                 <div
                     className={cn(
@@ -84,14 +75,17 @@ export default function Presentation() {
                                 cns.description.title
                             }
                         >
-                            {content[0].title}
+                            {cdn.presentation[0].title}
                         </h2>
                         <p
                             className={
                                 cns.description.description
                             }
                         >
-                            {content[0].description}
+                            {
+                                cdn.presentation[0]
+                                    .description
+                            }
                         </p>
                     </div>
                 </div>
@@ -121,14 +115,17 @@ export default function Presentation() {
                                 cns.description.title
                             }
                         >
-                            {content[1].title}
+                            {cdn.presentation[1].title}
                         </h2>
                         <p
                             className={
                                 cns.description.description
                             }
                         >
-                            {content[1].description}
+                            {
+                                cdn.presentation[1]
+                                    .description
+                            }
                         </p>
                     </div>
                 </div>
@@ -139,11 +136,10 @@ export default function Presentation() {
                         "lg:-mb-[5rem]"
                     )}
                     src={useResponsive<string>([
-                        content[1].image.mobile,
-                        content[1].image.tablet,
-                        content[1].image.desktop,
+                        images[1].mobile,
+                        images[1].tablet,
+                        images[1].desktop,
                     ])}
-                    alt={content[1].title}
                 />
             </div>
         </div>

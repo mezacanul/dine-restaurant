@@ -1,17 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { content as esContent } from "../../cdn/es";
+// import { content as esContent } from "../../cdn/es";
+// import { content as enContent } from "../../cdn/en";
 
 export const contentSlice = createSlice({
     name: "content",
-    initialState: {
-        content: [],
-    },
-    reducers: {
-        setContent: (state, action) => {
-            state.content = action.payload;
-        },
-    },
+    initialState: esContent,
+    reducers: {},
 });
-
-export const { setContent } = contentSlice.actions;
 
 export default contentSlice.reducer;

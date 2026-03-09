@@ -3,8 +3,13 @@ import { cn } from "../../utils/cn";
 import Button from "../common/Button";
 import { useNavigate } from "react-router-dom";
 import Logo from "../Logo";
+import { useSelector } from "react-redux";
+import type { RootState } from "../../store";
 
 export default function Hero() {
+    const cdn = useSelector(
+        (state: RootState) => state.content.home
+    );
     const navigate = useNavigate();
     const cns = {
         container: cn(
@@ -35,15 +40,13 @@ export default function Hero() {
             <div className={cns.content}>
                 {useResponsive([<Logo />, <Logo />, null])}
                 <h1 className={cns.title}>
-                    {"Exquisite dining since 1989"}
+                    {cdn.hero.title}
                 </h1>
                 <p className={cns.description}>
-                    {
-                        "Experience our seasonal menu in beautiful country surroundings. Eat the freshest produce from the comfort of our farmhouse."
-                    }
+                    {cdn.hero.description}
                 </p>
                 <Button
-                    label="BOOK A TABLE"
+                    label={cdn.hero.btn}
                     onClick={() => navigate("/booking")}
                 />
             </div>

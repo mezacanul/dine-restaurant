@@ -1,0 +1,18 @@
+import homeContent from "./home";
+import bookingContent from "./booking";
+
+export const content = {
+    title: "dine",
+    home: homeContent,
+    booking: bookingContent,
+    footer: {
+        location: "Marthwaite, Sedbergh",
+        country: "Cumbria",
+        phone: "+00 44 123 4567",
+        times: {
+            title: "Opening Times",
+            weekly: "Mon - Fri: 09:00 AM - 10:00 PM",
+            weekend: "Sat - Sun: 09:00 AM - 04:00 PM",
+        },
+    },
+};

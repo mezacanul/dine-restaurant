@@ -2,6 +2,8 @@ import { Outlet } from "react-router-dom";
 import Logo from "./Logo";
 import { useResponsive } from "../hooks/useResponsive";
 import { cn } from "../utils/cn";
+import { useSelector } from "react-redux";
+import type { RootState } from "../store";
 
 export default function Layout() {
     return (
@@ -22,6 +24,9 @@ function Header() {
 }
 
 function Footer() {
+    const cdn = useSelector(
+        (state: RootState) => state.content.footer
+    );
     return (
         <div
             className={cn(
@@ -32,15 +37,15 @@ function Footer() {
             <Logo />
 
             <div className="flex flex-col items-center lg:items-start gap-2">
-                <p>{"Marthwaite, Sedbergh"}</p>
-                <p>{"Cumbria"}</p>
-                <p>{"+00 44 123 4567"}</p>
+                <p>{cdn.location}</p>
+                <p>{cdn.country}</p>
+                <p>{cdn.phone}</p>
             </div>
 
             <div className="flex flex-col items-center lg:items-start gap-2">
-                <p>{"Open Times"}</p>
-                <p>{"Mon - Fri: 09:00 AM - 10:00 PM"}</p>
-                <p>{"Sat - Sun: 09:00 AM - 04:00 PM"}</p>
+                <p>{cdn.times.title}</p>
+                <p>{cdn.times.weekly}</p>
+                <p>{cdn.times.weekend}</p>
             </div>
         </div>
     );
