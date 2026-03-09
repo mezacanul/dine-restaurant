@@ -19,11 +19,11 @@ export default function Form() {
         day: "",
     });
     const [time, setTime] = useState({
-        hour: "09",
-        minute: "00",
+        hour: "",
+        minute: "",
         period: "AM",
     });
-    const [isValid] = useState({
+    const [isValid, setIsValid] = useState({
         name: true,
         email: true,
         date: true,
@@ -32,17 +32,63 @@ export default function Form() {
 
     function handleSubmit() {
         setIsLoading(true);
+        const { passes, newErrorObj } = isValidForm();
         setTimeout(() => {
             setIsLoading(false);
-            setSuccess(true);
+            if (!passes) {
+                setIsValid(newErrorObj);
+                return;
+            } else {
+                setSuccess(true);
+            }
         }, 1000);
+    }
+    function isValidForm() {
+        let passes = true;
+        const newErrorObj = {
+            name: true,
+            email: true,
+            date: true,
+            time: true,
+        };
+        const { name, email } = formData;
+        const nameLength = name.length;
+        if (nameLength < 3) {
+            passes = false;
+            newErrorObj.name = false;
+        }
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const isEmailValid =
+            email.match(emailRegex) !== null;
+        if (!isEmailValid) {
+            passes = false;
+            newErrorObj.email = false;
+        }
+        const isValidDate = checkIsValidDate(
+            date.day,
+            date.month,
+            "2026"
+        );
+        if (!isValidDate) {
+            passes = false;
+            newErrorObj.date = false;
+        }
+        const isValidTime = checkIsValidTime(
+            time.hour,
+            time.minute
+        );
+        if (!isValidTime) {
+            passes = false;
+            newErrorObj.time = false;
+        }
+        return { passes, newErrorObj };
     }
     return (
         <div
             className={cn(
                 "w-full lg:w-[50%] mt-0 lg:mt-[30vh] flex flex-col gap-[1.5rem]",
                 "bg-neutral-50 z-10 shadow-2xl/50 px-8 py-8 text-6 text-black",
-                success ? "h-[100vh] sm:h-[800px] lg:h-[50vh]" : ""
+                success ? "py-[20vh] lg:py-8 h-[50vh]" : ""
             )}
         >
             {!success && (
@@ -60,7 +106,9 @@ export default function Form() {
                         />
                         {!isValid.name && (
                             <p className="text-red-500 text-sm">
-                                {"Name is required"}
+                                {
+                                    "Please enter a valid name"
+                                }
                             </p>
                         )}
                     </div>
@@ -77,7 +125,9 @@ export default function Form() {
                         />
                         {!isValid.email && (
                             <p className="text-red-500 text-sm">
-                                {"Email is required"}
+                                {
+                                    "Please enter a valid email address"
+                                }
                             </p>
                         )}
                     </div>
@@ -114,10 +164,11 @@ export default function Form() {
                 </div>
             )}
             {success && (
-                <div className="flex items-center justify-center pt-2 h-full">
+                <div className="flex flex-col items-center gap-3 justify-center pt-2 h-full">
                     <p className="text-green-600 text-2-light text-center">
                         {"Reservation made successfully!"}
                     </p>
+                    <p className="text-center w-[70%]">{`We'll be in touch soon to confirm your reservation.`}</p>
                 </div>
             )}
         </div>
@@ -146,21 +197,30 @@ function Input({
     );
 }
 
-// function getArray(type: "days" | "months") {
-//     const base = Array.from(
-//         { length: 31 },
-//         (_, i) => i + 1
-//     );
-//     const strArray = base.map((day) => {
-//         if (day < 10) {
-//             return `0${day}`;
-//         }
-//         return day.toString();
-//     });
-//     if (type === "days") {
-//         return strArray;
-//     }
-//     if (type === "months") {
-//         return strArray.slice(0, 12);
-//     }
-// }
+function checkIsValidDate(
+    d: string,
+    m: string,
+    y: string
+): boolean {
+    const day = Number(d);
+    const month = Number(m) - 1;
+    const year = Number(y);
+    const dt = new Date(year, month, day);
+
+    return (
+        dt.getFullYear() === year &&
+        dt.getMonth() === month &&
+        dt.getDate() === day
+    );
+}
+
+function checkIsValidTime(h: string, m: string): boolean {
+    const hour = Number(h);
+    const minute = Number(m);
+    return (
+        hour >= 1 &&
+        hour <= 12 &&
+        minute >= 0 &&
+        minute <= 59
+    );
+}

@@ -10,7 +10,7 @@ export default function Booking() {
         <div
             className={cn(
                 // bgClass,
-                "h-[110vh] sm:h-[90vh] lg:h-screen w-full bg-cover bg-center"
+                "h-[100vh] sm:h-[100vh] lg:h-screen w-full bg-cover bg-center"
             )}
         >
             <div
@@ -23,8 +23,8 @@ export default function Booking() {
             >
                 <div className="w-full lg:w-[45%] flex flex-col gap-5 items-center lg:items-start">
                     {useResponsive([
-                        <Logo />,
-                        <Logo />,
+                        <Logo link={true} />,
+                        <Logo link={true} />,
                         null,
                     ])}
                     <h1 className="text-1 text-center lg:text-left">
@@ -39,7 +39,7 @@ export default function Booking() {
 
                 <Form />
             </div>
-            <div className="bg-neutral-50 relative h-[50vh] sm:h-[30vh] lg:h-[40vh]">
+            <div className="bg-neutral-50 relative h-[40vh]">
                 <img
                     src="/images/patterns/pattern-lines.svg"
                     alt="Booking Table"
@@ -48,7 +48,7 @@ export default function Booking() {
                 <img
                     src="/images/patterns/pattern-curve-bottom-right.svg"
                     alt="Booking Background"
-                    className="absolute top-0 left-0 h-full w-[65%] object-fill"
+                    className="hidden lg:block absolute top-0 left-0 h-full w-[65%] object-fill"
                 />
             </div>
         </div>

@@ -47,7 +47,7 @@ export default function TimePicker({
                 ])}
                 <input
                     type="text"
-                    placeholder="09"
+                    placeholder="HH"
                     value={time.hour}
                     className={inputClass}
                     onChange={(e) =>
@@ -59,7 +59,7 @@ export default function TimePicker({
                 />
                 <input
                     type="text"
-                    placeholder="00"
+                    placeholder="MM"
                     value={time.minute}
                     className={inputClass}
                     onChange={(e) =>

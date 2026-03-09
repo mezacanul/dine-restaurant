@@ -7,7 +7,6 @@ export default function Layout() {
     return (
         <div className="relative">
             {useResponsive([null, null, <Header />])}
-            {/* <Header /> */}
             <Outlet />
             <Footer />
         </div>
@@ -17,7 +16,7 @@ export default function Layout() {
 function Header() {
     return (
         <div className="absolute top-0 left-0 w-full px-container py-[3rem] z-10">
-            <Logo />
+            <Logo link={true} />
         </div>
     );
 }
