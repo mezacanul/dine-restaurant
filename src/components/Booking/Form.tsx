@@ -5,8 +5,13 @@ import DatePicker from "./DatePicker";
 import TimePicker from "./TimePicker";
 import GuestsPicker from "./GuestsPicker";
 import { ImSpinner8 } from "react-icons/im";
+import { useSelector } from "react-redux";
+import type { RootState } from "../../store";
 
 export default function Form() {
+    const cdn = useSelector(
+        (state: RootState) => state.content.booking
+    );
     const [isLoading, setIsLoading] = useState(false);
     const [success, setSuccess] = useState(false);
     const [formData, setFormData] = useState({
@@ -95,7 +100,9 @@ export default function Form() {
                 <>
                     <div className="flex flex-col gap-2">
                         <Input
-                            placeholder="Name"
+                            placeholder={
+                                cdn.form.name.placeholder
+                            }
                             value={formData.name}
                             onChange={(e) =>
                                 setFormData({
@@ -106,15 +113,15 @@ export default function Form() {
                         />
                         {!isValid.name && (
                             <p className="text-red-500 text-sm">
-                                {
-                                    "Please enter a valid name"
-                                }
+                                {cdn.form.name.invalid}
                             </p>
                         )}
                     </div>
                     <div className="flex flex-col gap-2">
                         <Input
-                            placeholder="Email"
+                            placeholder={
+                                cdn.form.email.placeholder
+                            }
                             value={formData.email}
                             onChange={(e) =>
                                 setFormData({
@@ -125,9 +132,7 @@ export default function Form() {
                         />
                         {!isValid.email && (
                             <p className="text-red-500 text-sm">
-                                {
-                                    "Please enter a valid email address"
-                                }
+                                {cdn.form.email.invalid}
                             </p>
                         )}
                     </div>
@@ -150,7 +155,7 @@ export default function Form() {
 
             {!isLoading && !success && (
                 <Button
-                    label="MAKE RESERVATION"
+                    label={cdn.btn}
                     type="solid"
                     onClick={handleSubmit}
                     // disabled={true}
@@ -166,9 +171,11 @@ export default function Form() {
             {success && (
                 <div className="flex flex-col items-center gap-3 justify-center pt-2 h-full">
                     <p className="text-green-600 text-2-light text-center">
-                        {"Reservation made successfully!"}
+                        {cdn.success.title}
                     </p>
-                    <p className="text-center w-[70%]">{`We'll be in touch soon to confirm your reservation.`}</p>
+                    <p className="text-center w-[70%]">
+                        {cdn.success.description}
+                    </p>
                 </div>
             )}
         </div>

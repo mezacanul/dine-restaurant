@@ -1,6 +1,8 @@
 import { FaChevronDown } from "react-icons/fa";
 import { useResponsive } from "../../hooks/useResponsive";
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import type { RootState } from "../../store";
 
 interface TimePickerProps {
     time: { hour: string; minute: string; period: string };
@@ -13,12 +15,15 @@ interface TimePickerProps {
 }
 
 function Title({ isValid }: { isValid: boolean }) {
+    const cdn = useSelector(
+        (state: RootState) => state.content.booking
+    );
     return (
         <div>
-            <p className="w-full">{"Pick a time"}</p>
+            <p className="w-full">{cdn.form.time.title}</p>
             {!isValid && (
                 <p className="text-red-500 text-sm">
-                    {"Invalid time"}
+                    {cdn.form.time.invalid}
                 </p>
             )}
         </div>

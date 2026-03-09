@@ -1,9 +1,14 @@
 import { cn } from "../utils/cn";
+import { useSelector } from "react-redux";
+import type { RootState } from "../store";
 import Form from "../components/Booking/Form";
 import { useResponsive } from "../hooks/useResponsive";
 import Logo from "../components/Logo";
 
 export default function Booking() {
+    const cdn = useSelector(
+        (state: RootState) => state.content.booking
+    );
     const bgClass =
         "bg-[url('/images/booking/hero-bg-desktop@2x.jpg')]";
     return (
@@ -28,12 +33,10 @@ export default function Booking() {
                         null,
                     ])}
                     <h1 className="text-1 text-center lg:text-left">
-                        {"Reservations"}
+                        {cdn.title}
                     </h1>
                     <p className="text-4-regular text-light text-center lg:text-left">
-                        {
-                            "We can't wait to host you. If you have any special requirements please feel free to call on the phone number below. We'll be happy to accommodate you."
-                        }
+                        {cdn.description}
                     </p>
                 </div>
 

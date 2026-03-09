@@ -1,4 +1,6 @@
+import { useSelector } from "react-redux";
 import { useResponsive } from "../../hooks/useResponsive";
+import type { RootState } from "../../store";
 interface DatePickerProps {
     date: { month: string; day: string };
     setDate: (date: { month: string; day: string }) => void;
@@ -6,12 +8,15 @@ interface DatePickerProps {
 }
 
 function Title({ isValid }: { isValid: boolean }) {
+    const cdn = useSelector(
+        (state: RootState) => state.content.booking
+    );
     return (
         <div>
-            <p className="w-full ">{"Pick a date"}</p>
+            <p className="w-full ">{cdn.form.date.title}</p>
             {!isValid && (
                 <p className="text-red-500 text-sm">
-                    {"Invalid date"}
+                    {cdn.form.date.invalid}
                 </p>
             )}
         </div>
